@@ -79,5 +79,22 @@ def list_jobs():
     return render_template("list_jobs.jinja2", ctx=ctx)
 
 
+@bp.route("/jobs/<int:index>")
+def job(index):
+    try:
+        job = get_job(index)
+    except (ValueError, IndexError):
+        return render_template("404.jinja2"), 404
+
+    return render_template("job.jinja2", job=job)
+
+
+def get_job(index):
+    jobs = read(path="data/jobs.csv")
+    if index < 0 or index >= len(jobs):
+        raise IndexError("Index out of range")
+    return jobs[index]
+
+
 def init_app(app: Flask):
     app.register_blueprint(bp)
