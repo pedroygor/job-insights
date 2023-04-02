@@ -82,8 +82,8 @@ def list_jobs():
 @bp.route("/job/<index>")
 def job(index):
     jobs = read(path="data/jobs.csv")
-    jobByIndex = jobs[int(index)]
-    return render_template("job.jinja2", job=jobByIndex)
+    job_by_index = jobs[int(index)]
+    return render_template("job.jinja2", job=job_by_index)
 
 
 def init_app(app: Flask):
